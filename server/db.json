@@ -1,0 +1,16 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Achmad Akbar Irwanda",
+      "walletId": 1
+    }
+  ],
+  "wallets": [
+    {
+      "id": 1,
+      "balance": 0
+    }
+  ],
+  "transactions": []
+}
