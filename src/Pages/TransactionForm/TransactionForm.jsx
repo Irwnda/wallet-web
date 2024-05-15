@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { BACKEND_URL } from '../../constants';
+import React, { useEffect, useState } from 'react';
+import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 
 const initialTransactionValue = {
@@ -9,10 +9,9 @@ const initialTransactionValue = {
   type: ''
 };
 export default function TransactionForm() {
+  const [user, setUser] = useState();
+  const [wallet, setWallet] = useState();
   const [transaction, setTransaction] = useState(initialTransactionValue);
-  const wallet = {
-    id: 1
-  };
   const navigate = useNavigate();
 
   const submitTransaction = () => {
@@ -26,6 +25,30 @@ export default function TransactionForm() {
     postTransaction();
     navigate('/');
   };
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const { data } = await axios.get(
+        `${BACKEND_URL}/customers/${CUSTOMER_ID}`
+      );
+      setUser(data);
+    }
+
+    fetchUserData();
+  }, [CUSTOMER_ID]);
+
+  useEffect(() => {
+    async function fetchUserWallet() {
+      if (user) {
+        const { data } = await axios.get(
+          `${BACKEND_URL}/wallets/${user?.walletId}`
+        );
+        setWallet(data);
+      }
+    }
+
+    fetchUserWallet();
+  }, [user]);
 
   return (
     <div className="form-container">
