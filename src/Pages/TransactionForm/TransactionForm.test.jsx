@@ -1,6 +1,7 @@
 import {
   findAllByRole,
   findByText,
+  getByText,
   render,
   screen
 } from '@testing-library/react';
@@ -117,5 +118,41 @@ describe('TransactionForm', () => {
         balance: wallet.balance - newTransaction.amount
       }
     );
+  });
+
+  it('should show error message when trying to reduce the balance and the amount is bigger than current balance in the wallet', async () => {
+    jest.useFakeTimers({ advanceTimers: true });
+    jest.setSystemTime(new Date('2024-05-15T00:00:00.000Z'));
+    render(
+      <MemoryRouter initialEntries={['/transaction-form']}>
+        <TransactionForm />
+      </MemoryRouter>
+    );
+    axios.post.mockResolvedValue({ data: newTransaction });
+    const amountInput = screen.getByLabelText('Amount');
+    const typeInput = screen.getByLabelText('Type');
+    const descriptionInput = screen.getByLabelText('Description');
+    const submitButton = screen.getByRole('button');
+    const user = userEvent.setup();
+    const newTransaction = new Transaction(
+      3,
+      new Date('2024-05-15T00:00:00.400Z'),
+      100,
+      'Lorem',
+      'withdraw'
+    );
+    await user.type(amountInput, `${newTransaction.amount}`);
+    await user.selectOptions(typeInput, newTransaction.type);
+    await user.type(descriptionInput, newTransaction.description);
+
+    await user.click(submitButton);
+
+    expect(axios.post).not.toHaveBeenCalled();
+    expect(axios.patch).not.toHaveBeenCalled();
+
+    const errorParagraph = screen.getByRole('paragraph');
+    const errorMessage = getByText(errorParagraph, 'Insufficient balance');
+    expect(errorParagraph).toBeInTheDocument();
+    expect(errorMessage).toBeInTheDocument();
   });
 });
