@@ -20,10 +20,13 @@ export default function TransactionForm() {
         ...transaction,
         date: new Date()
       });
+      await axios.patch(`${BACKEND_URL}/wallets/${wallet.id}`, {
+        balance: Number(wallet.balance) + Number(transaction.amount)
+      });
+      navigate('/');
     }
 
     postTransaction();
-    navigate('/');
   };
 
   useEffect(() => {

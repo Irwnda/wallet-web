@@ -6,7 +6,7 @@ import Transaction from '../../Transaction';
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
     const { amount } = transaction;
-    if (transaction.type === type) return total + amount;
+    if (transaction.type === type) return total + Number(amount);
     return total;
   }, 0);
 }

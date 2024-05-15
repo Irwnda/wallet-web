@@ -61,5 +61,12 @@ describe('TransactionForm', () => {
       `${BACKEND_URL}/wallets/${wallet.id}/transactions`,
       newTransaction.toJSON()
     );
+    expect(axios.patch).toHaveBeenCalledTimes(1);
+    expect(axios.patch).toHaveBeenCalledWith(
+      `${BACKEND_URL}/wallets/${wallet.id}`,
+      {
+        balance: wallet.balance + newTransaction.amount
+      }
+    );
   });
 });
