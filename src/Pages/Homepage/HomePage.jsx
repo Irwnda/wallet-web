@@ -15,6 +15,7 @@ function getAmountTotalCategorized(transactions, type) {
 export default function HomePage() {
   const { fetchedData: user } = useFetch('customers', CUSTOMER_ID);
   const { fetchedData: wallet } = useFetch('wallets', user?.walletId);
+  const [filterQuery, setFilterQuery] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
@@ -71,23 +72,37 @@ export default function HomePage() {
           </li>
         </ul>
       </section>
+      <label htmlFor="filter">Filter</label>
+      <input
+        type="text"
+        value={filterQuery}
+        onChange={(event) => setFilterQuery(event.target.value)}
+        name="filter"
+        id="filter"
+      />
       <section className="transaction-history-section">
         <h3>Transactions</h3>
         <ul className="transaction-history-wrapper">
-          {transactions.map((transaction) => (
-            <li key={transaction.id} className="transaction-item">
-              <ul>
-                <li className="financial-detail">
-                  <span>{transaction.type}</span>
-                  <span>{transaction.amount}</span>
-                </li>
-                <li className="transaction-context">
-                  <span>{transaction.description}</span>
-                  <span>{transaction.date}</span>
-                </li>
-              </ul>
-            </li>
-          ))}
+          {transactions
+            .filter((transaction) =>
+              transaction.description
+                .toLowerCase()
+                .includes(filterQuery.toLocaleLowerCase())
+            )
+            .map((transaction) => (
+              <li key={transaction.id} className="transaction-item">
+                <ul>
+                  <li className="financial-detail">
+                    <span>{transaction.type}</span>
+                    <span>{transaction.amount}</span>
+                  </li>
+                  <li className="transaction-context">
+                    <span>{transaction.description}</span>
+                    <span>{transaction.date}</span>
+                  </li>
+                </ul>
+              </li>
+            ))}
         </ul>
       </section>
     </>

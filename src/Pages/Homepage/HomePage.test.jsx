@@ -4,12 +4,14 @@ import {
   findByText,
   getAllByRole,
   getByRole,
+  queryByText,
   render,
   screen
 } from '@testing-library/react';
 import HomePage from './HomePage';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import Transaction from '../../Transaction';
+import userEvent from '@testing-library/user-event';
 
 jest.mock('axios');
 
@@ -132,6 +134,11 @@ describe('HomePage', () => {
       transactionHistoryElement,
       firstTransactionInstance.date
     );
+    expect(typeInFirstTransaction).toBeInTheDocument();
+    expect(descriptionInFirstTransaction).toBeInTheDocument();
+    expect(amountInFirstTransaction).toBeInTheDocument();
+    expect(dateInFirstTransaction).toBeInTheDocument();
+
     const secondTransaction = transactions[1];
     const {
       id: secondId,
@@ -147,11 +154,6 @@ describe('HomePage', () => {
       secondDescription,
       secondType
     );
-    expect(typeInFirstTransaction).toBeInTheDocument();
-    expect(descriptionInFirstTransaction).toBeInTheDocument();
-    expect(amountInFirstTransaction).toBeInTheDocument();
-    expect(dateInFirstTransaction).toBeInTheDocument();
-
     const typeInSecondTransaction = await findByText(
       transactionHistoryElement,
       secondTransactionInstance.type
@@ -173,5 +175,91 @@ describe('HomePage', () => {
     expect(descriptionInSecondTransaction).toBeInTheDocument();
     expect(amountInSecondTransaction).toBeInTheDocument();
     expect(dateInSecondTransaction).toBeInTheDocument();
+  });
+
+  it('should only the first transaction when filtered "Depo"', async () => {
+    render(<HomePage />);
+    const user = userEvent.setup();
+    const filterQuery = 'Depo';
+    const filterInput = screen.getByLabelText('Filter');
+    await user.type(filterInput, filterQuery);
+
+    const TRANSACTION_HISTORY_INDEX_LIST = 1;
+    const transactionHistoryElement =
+      screen.getAllByRole('list')[TRANSACTION_HISTORY_INDEX_LIST];
+
+    const firstTransaction = transactions[0];
+    const {
+      id: firstId,
+      date: firstDate,
+      amount: firstAmount,
+      description: firstDescription,
+      type: firstType
+    } = firstTransaction;
+    const firstTransactionInstance = new Transaction(
+      firstId,
+      firstDate,
+      firstAmount,
+      firstDescription,
+      firstType
+    );
+    const typeInFirstTransaction = await findByText(
+      transactionHistoryElement,
+      firstTransactionInstance.type
+    );
+    const descriptionInFirstTransaction = await findByText(
+      transactionHistoryElement,
+      firstTransactionInstance.description
+    );
+    const amountInFirstTransaction = await findByText(
+      transactionHistoryElement,
+      firstTransactionInstance.amount
+    );
+    const dateInFirstTransaction = await findByText(
+      transactionHistoryElement,
+      firstTransactionInstance.date
+    );
+
+    expect(typeInFirstTransaction).toBeInTheDocument();
+    expect(descriptionInFirstTransaction).toBeInTheDocument();
+    expect(amountInFirstTransaction).toBeInTheDocument();
+    expect(dateInFirstTransaction).toBeInTheDocument();
+
+    const secondTransaction = transactions[1];
+    const {
+      id: secondId,
+      date: secondDate,
+      amount: secondAmount,
+      description: secondDescription,
+      type: secondType
+    } = secondTransaction;
+    const secondTransactionInstance = new Transaction(
+      secondId,
+      secondDate,
+      secondAmount,
+      secondDescription,
+      secondType
+    );
+    const typeInSecondTransaction = queryByText(
+      transactionHistoryElement,
+      secondTransactionInstance.type
+    );
+    const descriptionInSecondTransaction = queryByText(
+      transactionHistoryElement,
+      secondTransactionInstance.description
+    );
+    const amountInSecondTransaction = queryByText(
+      transactionHistoryElement,
+      secondTransactionInstance.amount
+    );
+    const dateInSecondTransaction = queryByText(
+      transactionHistoryElement,
+      secondTransactionInstance.date
+    );
+
+    expect(typeInSecondTransaction).toBeNull();
+    expect(descriptionInSecondTransaction).toBeNull();
+    expect(amountInSecondTransaction).toBeNull();
+    expect(dateInSecondTransaction).toBeNull();
   });
 });
