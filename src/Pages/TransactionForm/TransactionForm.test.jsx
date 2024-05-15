@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import { customers, transactions, wallets } from '../../../fixtures.json';
 import Transaction from '../../Transaction';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import App from '../../App';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import TransactionForm from './TransactionForm';
@@ -32,7 +32,11 @@ describe('TransactionForm', () => {
   it('should add new transaction when the submit button is clicked', async () => {
     jest.useFakeTimers({ advanceTimers: true });
     jest.setSystemTime(new Date('2024-05-15T00:00:00.000Z'));
-    render(<TransactionForm />);
+    render(
+      <MemoryRouter initialEntries={['/transaction-form']}>
+        <TransactionForm />
+      </MemoryRouter>
+    );
     axios.post.mockResolvedValue({ data: newTransaction });
     const amountInput = screen.getByLabelText('Amount');
     const typeInput = screen.getByLabelText('Type');

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { BACKEND_URL } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const initialTransactionValue = {
   amount: 0,
@@ -12,6 +13,7 @@ export default function TransactionForm() {
   const wallet = {
     id: 1
   };
+  const navigate = useNavigate();
 
   const submitTransaction = () => {
     async function postTransaction() {
@@ -22,6 +24,7 @@ export default function TransactionForm() {
     }
 
     postTransaction();
+    navigate('/');
   };
 
   return (
