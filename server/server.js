@@ -3,7 +3,7 @@ const jsonServer = require('json-server');
 
 const server = jsonServer.create();
 
-const router = jsonServer.router('wallet.json');
+const router = jsonServer.router('server/db.json');
 
 const middlewares = jsonServer.defaults();
 
