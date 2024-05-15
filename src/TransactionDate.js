@@ -1,4 +1,4 @@
-export default class Transaction {
+export default class TransactionDate {
   #date;
 
   constructor(date) {
