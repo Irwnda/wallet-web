@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import axios from 'axios';
-import TransactionDate from '../../TransactionDate';
+import TransactionDate from '../../Transaction';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -50,10 +50,18 @@ export default function HomePage() {
         );
         const { transactions: fetchedTransactions } = data;
         const customDateTransactions = fetchedTransactions.map(
-          (transaction) => ({
-            ...transaction,
-            date: new TransactionDate(transaction.date)
-          })
+          (transaction) => {
+            const { id, date, amount, description, type } = transaction;
+
+            return new TransactionDate(
+              id,
+
+              date,
+              amount,
+              description,
+              type
+            );
+          }
         );
         setTransactions(customDateTransactions);
       }
