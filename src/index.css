@@ -23,6 +23,10 @@ ul {
   padding: 0;
 }
 
+.main-content {
+  position: relative;
+}
+
 .balance-information-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

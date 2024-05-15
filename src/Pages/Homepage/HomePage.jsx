@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import axios from 'axios';
 import Transaction from '../../Transaction';
+import useFetch from '../../Hooks/useFetch';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -12,35 +13,11 @@ function getAmountTotalCategorized(transactions, type) {
 }
 
 export default function HomePage() {
-  const [user, setUser] = useState();
-  const [wallet, setWallet] = useState();
+  const { fetchedData: user } = useFetch('customers', CUSTOMER_ID);
+  const { fetchedData: wallet } = useFetch('wallets', user?.walletId);
   const [transactions, setTransactions] = useState([]);
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
-
-  useEffect(() => {
-    async function fetchUserData() {
-      const { data } = await axios.get(
-        `${BACKEND_URL}/customers/${CUSTOMER_ID}`
-      );
-      setUser(data);
-    }
-
-    fetchUserData();
-  }, [CUSTOMER_ID]);
-
-  useEffect(() => {
-    async function fetchUserWallet() {
-      if (user) {
-        const { data } = await axios.get(
-          `${BACKEND_URL}/wallets/${user?.walletId}`
-        );
-        setWallet(data);
-      }
-    }
-
-    fetchUserWallet();
-  }, [user]);
 
   useEffect(() => {
     async function fetchUserTransactions() {

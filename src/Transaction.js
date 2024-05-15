@@ -1,4 +1,4 @@
-export default class TransactionDate {
+export default class Transaction {
   #id;
 
   #date;

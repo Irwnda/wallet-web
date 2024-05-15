@@ -12,8 +12,10 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import App from '../../App';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import TransactionForm from './TransactionForm';
+import useFetch from '../../Hooks/useFetch';
 
 jest.mock('axios');
+jest.mock('../../Hooks/useFetch');
 
 let customer;
 let wallet;
@@ -26,6 +28,13 @@ beforeEach(() => {
     .mockResolvedValueOnce({ data: customer })
     .mockResolvedValueOnce({ data: wallet })
     .mockResolvedValueOnce({ data: { transactions } });
+  useFetch
+    .mockReturnValueOnce({
+      fetchedData: customer
+    })
+    .mockReturnValue({
+      fetchedData: wallet
+    });
 });
 
 afterEach(() => {

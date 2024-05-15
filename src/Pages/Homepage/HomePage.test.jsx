@@ -23,7 +23,7 @@ beforeEach(() => {
   axios.get
     .mockResolvedValueOnce({ data: customer })
     .mockResolvedValueOnce({ data: wallet })
-    .mockResolvedValueOnce({ data: { transactions } });
+    .mockResolvedValue({ data: { transactions } });
 });
 
 afterEach(() => {
