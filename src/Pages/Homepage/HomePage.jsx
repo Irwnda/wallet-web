@@ -84,10 +84,12 @@ export default function HomePage() {
         <h3>Transactions</h3>
         <ul className="transaction-history-wrapper">
           {transactions
-            .filter((transaction) =>
-              transaction.description
-                .toLowerCase()
-                .includes(filterQuery.toLocaleLowerCase())
+            .filter(
+              (transaction) =>
+                transaction.description
+                  .toLowerCase()
+                  .includes(filterQuery.toLocaleLowerCase()) ||
+                transaction.amount.toString().includes(filterQuery)
             )
             .map((transaction) => (
               <li key={transaction.id} className="transaction-item">
