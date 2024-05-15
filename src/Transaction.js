@@ -40,4 +40,13 @@ export default class TransactionDate {
   get type() {
     return this.#type;
   }
+
+  toJSON() {
+    return {
+      amount: `${this.#amount}`,
+      date: this.#date,
+      description: this.#description,
+      type: this.#type
+    };
+  }
 }
