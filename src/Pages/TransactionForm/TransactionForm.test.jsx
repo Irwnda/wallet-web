@@ -28,6 +28,10 @@ beforeEach(() => {
     .mockResolvedValueOnce({ data: { transactions } });
 });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('TransactionForm', () => {
   it('should add new transaction when the submit button is clicked', async () => {
     jest.useFakeTimers({ advanceTimers: true });
@@ -66,6 +70,42 @@ describe('TransactionForm', () => {
       `${BACKEND_URL}/wallets/${wallet.id}`,
       {
         balance: wallet.balance + newTransaction.amount
+      }
+    );
+  });
+
+  it('should reduce the balance when create new transaction', async () => {
+    jest.useFakeTimers({ advanceTimers: true });
+    jest.setSystemTime(new Date('2024-05-15T00:00:00.000Z'));
+    render(
+      <MemoryRouter initialEntries={['/transaction-form']}>
+        <TransactionForm />
+      </MemoryRouter>
+    );
+    axios.post.mockResolvedValue({ data: newTransaction });
+    const amountInput = screen.getByLabelText('Amount');
+    const typeInput = screen.getByLabelText('Type');
+    const descriptionInput = screen.getByLabelText('Description');
+    const submitButton = screen.getByRole('button');
+    const user = userEvent.setup();
+    const newTransaction = new Transaction(
+      3,
+      new Date('2024-05-15T00:00:00.400Z'),
+      10,
+      'Lorem',
+      'withdraw'
+    );
+    await user.type(amountInput, `${newTransaction.amount}`);
+    await user.selectOptions(typeInput, newTransaction.type);
+    await user.type(descriptionInput, newTransaction.description);
+
+    await user.click(submitButton);
+
+    expect(axios.patch).toHaveBeenCalledTimes(1);
+    expect(axios.patch).toHaveBeenCalledWith(
+      `${BACKEND_URL}/wallets/${wallet.id}`,
+      {
+        balance: wallet.balance - newTransaction.amount
       }
     );
   });

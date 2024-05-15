@@ -20,8 +20,12 @@ export default function TransactionForm() {
         ...transaction,
         date: new Date()
       });
+      const additionalBalanceMultiplier =
+        transaction.type === 'deposit' ? 1 : -1;
       await axios.patch(`${BACKEND_URL}/wallets/${wallet.id}`, {
-        balance: Number(wallet.balance) + Number(transaction.amount)
+        balance:
+          Number(wallet.balance) +
+          Number(transaction.amount) * additionalBalanceMultiplier
       });
       navigate('/');
     }
