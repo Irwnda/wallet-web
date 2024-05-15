@@ -81,38 +81,39 @@ export default function HomePage() {
 
   return (
     <>
-      <section>
+      <section className="greetings-wrapper">
         Hello,
         <h1>{user?.name}</h1>
       </section>
       <section>
-        <ul>
-          <li>
+        <ul className="balance-information-wrapper">
+          <li className="balance-information-card">
             <h5>Balance</h5>
             <p>{wallet?.balance}</p>
           </li>
-          <li>
+          <li className="deposit-information-card">
             <h5>Deposit</h5>
             <p>{depositAmount}</p>
           </li>
-          <li>
+          <li className="withdraw-information-card">
             <h5>Withdraw</h5>
             <p>{withdrawAmount}</p>
           </li>
         </ul>
       </section>
-      <section>
-        <ul>
+      <section className="transaction-history-section">
+        <h3>Transactions</h3>
+        <ul className="transaction-history-wrapper">
           {transactions.map((transaction) => (
-            <li key={transaction.id}>
+            <li key={transaction.id} className="transaction-item">
               <ul>
-                <li>
+                <li className="financial-detail">
                   <span>{transaction.type}</span>
                   <span>{transaction.amount}</span>
                 </li>
-                <li>
+                <li className="transaction-context">
                   <span>{transaction.description}</span>
-                  <span>{`${transaction.date}`}</span>
+                  <span>{transaction.date}</span>
                 </li>
               </ul>
             </li>
