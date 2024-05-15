@@ -9,7 +9,7 @@
   "wallets": [
     {
       "id": 1,
-      "balance": 314.25
+      "balance": 50.25
     }
   ],
   "transactions": [
@@ -27,70 +27,6 @@
       "date": "2024-05-03T12:30:00",
       "amount": 50.25,
       "description": "Grocery shopping",
-      "type": "withdraw"
-    },
-    {
-      "id": 3,
-      "walletId": 1,
-      "date": "2024-05-02T19:15:00",
-      "amount": 20.0,
-      "description": "Restaurant dinner",
-      "type": "withdraw"
-    },
-    {
-      "id": 4,
-      "walletId": 1,
-      "date": "2024-05-01T08:45:00",
-      "amount": 200.0,
-      "description": "Bonus deposit",
-      "type": "deposit"
-    },
-    {
-      "id": 5,
-      "walletId": 1,
-      "date": "2024-04-30T17:00:00",
-      "amount": 35.75,
-      "description": "Gasoline",
-      "type": "withdraw"
-    },
-    {
-      "id": 6,
-      "walletId": 1,
-      "date": "2024-04-29T10:20:00",
-      "amount": 15.5,
-      "description": "Movie tickets",
-      "type": "withdraw"
-    },
-    {
-      "id": 7,
-      "walletId": 1,
-      "date": "2024-04-28T14:00:00",
-      "amount": 150.0,
-      "description": "Freelance payment",
-      "type": "deposit"
-    },
-    {
-      "id": 8,
-      "walletId": 1,
-      "date": "2024-04-27T16:45:00",
-      "amount": 80.0,
-      "description": "Shopping",
-      "type": "withdraw"
-    },
-    {
-      "id": 9,
-      "walletId": 1,
-      "date": "2024-04-26T11:10:00",
-      "amount": 75.25,
-      "description": "Refund",
-      "type": "deposit"
-    },
-    {
-      "id": 10,
-      "walletId": 1,
-      "date": "2024-04-25T13:55:00",
-      "amount": 10,
-      "description": "Lunch",
       "type": "withdraw"
     }
   ]
