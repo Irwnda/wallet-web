@@ -155,4 +155,41 @@ describe('TransactionForm', () => {
     expect(errorParagraph).toBeInTheDocument();
     expect(errorMessage).toBeInTheDocument();
   });
+
+  it('should show error message to ask user select transaction type when trying to add new transaction without the type', async () => {
+    jest.useFakeTimers({ advanceTimers: true });
+    jest.setSystemTime(new Date('2024-05-15T00:00:00.000Z'));
+    render(
+      <MemoryRouter initialEntries={['/transaction-form']}>
+        <TransactionForm />
+      </MemoryRouter>
+    );
+    axios.post.mockResolvedValue({ data: newTransaction });
+    const amountInput = screen.getByLabelText('Amount');
+    const descriptionInput = screen.getByLabelText('Description');
+    const submitButton = screen.getByRole('button');
+    const user = userEvent.setup();
+    const newTransaction = new Transaction(
+      3,
+      new Date('2024-05-15T00:00:00.400Z'),
+      100,
+      'Lorem',
+      'withdraw'
+    );
+    await user.type(amountInput, `${newTransaction.amount}`);
+    await user.type(descriptionInput, newTransaction.description);
+
+    await user.click(submitButton);
+
+    expect(axios.post).not.toHaveBeenCalled();
+    expect(axios.patch).not.toHaveBeenCalled();
+
+    const errorParagraph = screen.getByRole('paragraph');
+    const errorMessage = getByText(
+      errorParagraph,
+      'Invalid transaction. Type is required.'
+    );
+    expect(errorParagraph).toBeInTheDocument();
+    expect(errorMessage).toBeInTheDocument();
+  });
 });

@@ -4,6 +4,7 @@ import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../Hooks/useFetch';
 import InsufficientBalanceError from '../../Errors/InsufficientBalanceError';
+import InvalidTransactionError from '../../Errors/InvalidTransactionError';
 
 const initialTransactionValue = {
   amount: 0,
@@ -21,6 +22,7 @@ export default function TransactionForm() {
   const validateTransaction = () => {
     if (wallet.balance < transaction.amount && transaction.type === 'withdraw')
       throw new InsufficientBalanceError();
+    if (transaction.type === '') throw new InvalidTransactionError('Type');
   };
 
   const submitTransaction = () => {
