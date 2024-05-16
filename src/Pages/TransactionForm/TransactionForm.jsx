@@ -23,6 +23,7 @@ export default function TransactionForm() {
     if (wallet.balance < transaction.amount && transaction.type === 'withdraw')
       throw new InsufficientBalanceError();
     if (transaction.type === '') throw new InvalidTransactionError('Type');
+    if (!transaction.amount) throw new InvalidTransactionError('Amount');
   };
 
   const submitTransaction = () => {
