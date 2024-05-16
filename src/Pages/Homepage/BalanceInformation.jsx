@@ -7,17 +7,17 @@ export default function BalanceInformation({ balance, deposit, withdraw }) {
         <li className="balance-information-card">
           <h5>Balance</h5>
           <p>{balance}</p>
-          <img src="/jenius-orange.png" alt="Jenius Logo Orange" />
+          <span className="jenius-orange"></span>
         </li>
         <li className="deposit-information-card">
           <h5>Deposit</h5>
           <p>{deposit}</p>
-          <img src="/jenius-yellow.png" alt="Jenius Logo Yellow" />
+          <span className="jenius-yellow"></span>
         </li>
         <li className="withdraw-information-card">
           <h5>Withdraw</h5>
           <p>{withdraw}</p>
-          <img src="/jenius-blue.png" alt="Jenius Logo Blue" />
+          <span className="jenius-blue"></span>
         </li>
       </ul>
     </section>

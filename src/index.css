@@ -102,15 +102,19 @@ textarea {
   overflow: hidden;
 }
 
-.balance-information-wrapper > li *:not(img) {
+.balance-information-wrapper > li *:not(span) {
   z-index: 1;
 }
 
-.balance-information-wrapper > li img {
+.balance-information-wrapper > li span {
   position: absolute;
   height: 175%;
   left: -25%;
   bottom: -10%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 1;
 }
 
 .balance-information-wrapper > li > p {
@@ -122,12 +126,42 @@ textarea {
   background: #e3732d;
 }
 
+.jenius-orange {
+  background: linear-gradient(
+      to bottom,
+      rgba(227, 115, 45, 1),
+      rgba(227, 115, 45, 0.75),
+      rgba(0, 0, 0, 0)
+    ),
+    url('/jenius-orange.png');
+}
+
 .deposit-information-card {
   background: #f0bd45;
 }
 
+.jenius-yellow {
+  background: linear-gradient(
+      to bottom,
+      rgba(240, 189, 69, 1),
+      rgba(240, 189, 69, 0.75),
+      rgba(0, 0, 0, 0)
+    ),
+    url('/jenius-yellow.png');
+}
+
 .withdraw-information-card {
   background: #458ec9;
+}
+
+.jenius-blue {
+  background: linear-gradient(
+      to bottom,
+      rgba(69, 142, 201, 1),
+      rgba(69, 142, 201, 0.75),
+      rgba(0, 0, 0, 0)
+    ),
+    url('/jenius-blue.png');
 }
 
 .transaction-history-wrapper {
