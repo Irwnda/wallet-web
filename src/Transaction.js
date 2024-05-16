@@ -63,6 +63,6 @@ export default class Transaction {
   }
 
   filter(query) {
-    return this.#description.includes(query);
+    return this.#description.toLowerCase().includes(query.toLowerCase());
   }
 }

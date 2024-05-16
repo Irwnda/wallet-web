@@ -261,5 +261,21 @@ describe('Transaction', () => {
 
       expect(actualResult).toBe(expectedResult);
     });
+
+    it('should return true when the query is "Shopping" as the description did match the query (case insensitive)', () => {
+      const transaction = new Transaction(
+        2,
+        '2024-05-03T12:30:00',
+        50.25,
+        'Grocery shopping',
+        'withdraw'
+      );
+      const query = 'Shopping';
+      const expectedResult = true;
+
+      const actualResult = transaction.filter(query);
+
+      expect(actualResult).toBe(expectedResult);
+    });
   });
 });
