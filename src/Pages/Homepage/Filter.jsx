@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Filter({ filterQuery, setFilterQuery }) {
   return (
-    <>
+    <div>
       <label htmlFor="filter">Filter</label>
       <input
         type="text"
@@ -11,6 +11,6 @@ export default function Filter({ filterQuery, setFilterQuery }) {
         name="filter"
         id="filter"
       />
-    </>
+    </div>
   );
 }

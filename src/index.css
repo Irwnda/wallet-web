@@ -13,6 +13,21 @@ body {
   flex-direction: column;
 }
 
+nav {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+}
+
+nav a {
+  color: rgb(25, 25, 25);
+}
+
 section {
   width: 50%;
   margin: 0 auto;
@@ -21,6 +36,14 @@ section {
 
 ul {
   padding: 0;
+}
+
+input,
+select,
+textarea {
+  border-radius: 0.5rem;
+  border: 1px solid lightgray;
+  padding: 0.25rem 0.5rem;
 }
 
 .main-content {
@@ -49,6 +72,21 @@ ul {
 .greetings-wrapper,
 .transaction-history-section {
   background-color: white;
+}
+
+.sort-filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort {
+  display: flex;
+  gap: 1rem;
+}
+
+.sort-filter input,
+.sort-filter select {
+  margin-left: 0.5rem;
 }
 
 .transaction-history-section {
@@ -129,4 +167,24 @@ ul {
 
 .withdraw .transaction-amount {
   color: red;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-container button,
+.error-message {
+  border-radius: 0.5rem;
+  border: 1px solid lightgray;
+  padding: 0.25rem 0.5rem;
+}
+
+.error-message {
+  background-color: #ff3333;
+  color: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }

@@ -65,13 +65,15 @@ export default function HomePage() {
         deposit={depositAmount}
         withdraw={withdrawAmount}
       />
-      <Sorting
-        sortByValue={sortByValue}
-        sortOrderValue={sortOrderValue}
-        setSortByValue={setSortByValue}
-        setSortOrderValue={setSortOrderValue}
-      />
-      <Filter filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
+      <section className="sort-filter">
+        <Sorting
+          sortByValue={sortByValue}
+          sortOrderValue={sortOrderValue}
+          setSortByValue={setSortByValue}
+          setSortOrderValue={setSortOrderValue}
+        />
+        <Filter filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
+      </section>
       <TransactionList
         transactions={transactions}
         filterQuery={filterQuery}

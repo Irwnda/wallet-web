@@ -44,8 +44,8 @@ export default function TransactionForm() {
   };
 
   return (
-    <>
-      {errorMessage && <p>{errorMessage}</p>}
+    <section>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div className="form-container">
         <label htmlFor="amount">Amount</label>
         <input
@@ -93,6 +93,6 @@ export default function TransactionForm() {
           Submit
         </button>
       </div>
-    </>
+    </section>
   );
 }
