@@ -6,6 +6,7 @@ import useFetch from '../../Hooks/useFetch';
 import GreetingUser from './GreetingUser';
 import BalanceInformation from './BalanceInformation';
 import Sorting from './Sorting';
+import Filter from './Filter';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -69,15 +70,7 @@ export default function HomePage() {
         setSortByValue={setSortByValue}
         setSortOrderValue={setSortOrderValue}
       />
-
-      <label htmlFor="filter">Filter</label>
-      <input
-        type="text"
-        value={filterQuery}
-        onChange={(event) => setFilterQuery(event.target.value)}
-        name="filter"
-        id="filter"
-      />
+      <Filter filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
       <section className="transaction-history-section">
         <h3>Transactions</h3>
         <ul className="transaction-history-wrapper">
