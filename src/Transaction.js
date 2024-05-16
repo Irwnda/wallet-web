@@ -63,6 +63,9 @@ export default class Transaction {
   }
 
   filter(query) {
-    return this.#description.toLowerCase().includes(query.toLowerCase());
+    return (
+      this.#description.toLowerCase().includes(query.toLowerCase()) ||
+      this.#amount.toString().includes(query)
+    );
   }
 }

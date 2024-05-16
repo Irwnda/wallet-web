@@ -277,5 +277,21 @@ describe('Transaction', () => {
 
       expect(actualResult).toBe(expectedResult);
     });
+
+    it('should return true when the query is "1.5" as the amount did match the query', () => {
+      const transaction = new Transaction(
+        1,
+        '2024-05-02T09:00:00',
+        151.5,
+        'Freelance payment',
+        'deposit'
+      );
+      const query = '1.5';
+      const expectedResult = true;
+
+      const actualResult = transaction.filter(query);
+
+      expect(actualResult).toBe(expectedResult);
+    });
   });
 });
