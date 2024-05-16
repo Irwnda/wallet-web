@@ -75,13 +75,7 @@ export default function HomePage() {
         <h3>Transactions</h3>
         <ul className="transaction-history-wrapper">
           {transactions
-            .filter(
-              (transaction) =>
-                transaction.description
-                  .toLowerCase()
-                  .includes(filterQuery.toLocaleLowerCase()) ||
-                transaction.amount.toString().includes(filterQuery)
-            )
+            .filter((transaction) => transaction.filter(filterQuery))
             .sort((firstTransaction, secondTransaction) =>
               firstTransaction.comparesTo(
                 secondTransaction,
