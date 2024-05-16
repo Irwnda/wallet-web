@@ -504,5 +504,117 @@ describe('HomePage', () => {
       expect(amountInThirdSortedTransaction).toBeInTheDocument();
       expect(descriptionInThirdSortedTransaction).toBeInTheDocument();
     });
+
+    it('should display the third transaction, first transaction and second transaction respectively when sorting it by description', async () => {
+      render(<HomePage />);
+      const user = userEvent.setup();
+      const sortByValue = 'description';
+      const sortByElement = screen.getByLabelText('Sort By');
+      const firstSortedTransactionIndex = 2;
+      const secondSortedTransactionIndex = 0;
+      const thirdSortedTransactionIndex = 1;
+
+      await user.selectOptions(sortByElement, sortByValue);
+
+      const TRANSACTION_HISTORY_INDEX_LIST = 1;
+      const transactionHistoryElement =
+        screen.getAllByRole('list')[TRANSACTION_HISTORY_INDEX_LIST];
+
+      const firstSortedTransactionInstance = new Transaction(
+        transactionsForSorting[firstSortedTransactionIndex].id,
+        transactionsForSorting[firstSortedTransactionIndex].date,
+        transactionsForSorting[firstSortedTransactionIndex].amount,
+        transactionsForSorting[firstSortedTransactionIndex].description,
+        transactionsForSorting[firstSortedTransactionIndex].type
+      );
+      const firstSortedTransactionElement = (
+        await findAllByRole(transactionHistoryElement, 'list')
+      )[0];
+      const typeInFirstSortedTransaction = getByText(
+        firstSortedTransactionElement,
+        firstSortedTransactionInstance.type
+      );
+      const dateInFirstSortedTransaction = getByText(
+        firstSortedTransactionElement,
+        firstSortedTransactionInstance.date
+      );
+      const amountInFirstSortedTransaction = getByText(
+        firstSortedTransactionElement,
+        firstSortedTransactionInstance.amount
+      );
+      const descriptionInFirstSortedTransaction = getByText(
+        firstSortedTransactionElement,
+        firstSortedTransactionInstance.description
+      );
+
+      expect(typeInFirstSortedTransaction).toBeInTheDocument();
+      expect(dateInFirstSortedTransaction).toBeInTheDocument();
+      expect(amountInFirstSortedTransaction).toBeInTheDocument();
+      expect(descriptionInFirstSortedTransaction).toBeInTheDocument();
+
+      const secondSortedTransactionInstance = new Transaction(
+        transactionsForSorting[secondSortedTransactionIndex].id,
+        transactionsForSorting[secondSortedTransactionIndex].date,
+        transactionsForSorting[secondSortedTransactionIndex].amount,
+        transactionsForSorting[secondSortedTransactionIndex].description,
+        transactionsForSorting[secondSortedTransactionIndex].type
+      );
+      const secondSortedTransactionElement = (
+        await findAllByRole(transactionHistoryElement, 'list')
+      )[1];
+      const typeInSecondSortedTransaction = getByText(
+        secondSortedTransactionElement,
+        secondSortedTransactionInstance.type
+      );
+      const dateInSecondSortedTransaction = getByText(
+        secondSortedTransactionElement,
+        secondSortedTransactionInstance.date
+      );
+      const amountInSecondSortedTransaction = getByText(
+        secondSortedTransactionElement,
+        secondSortedTransactionInstance.amount
+      );
+      const descriptionInSecondSortedTransaction = getByText(
+        secondSortedTransactionElement,
+        secondSortedTransactionInstance.description
+      );
+
+      expect(typeInSecondSortedTransaction).toBeInTheDocument();
+      expect(dateInSecondSortedTransaction).toBeInTheDocument();
+      expect(amountInSecondSortedTransaction).toBeInTheDocument();
+      expect(descriptionInSecondSortedTransaction).toBeInTheDocument();
+
+      const thirdSortedTransactionInstance = new Transaction(
+        transactionsForSorting[thirdSortedTransactionIndex].id,
+        transactionsForSorting[thirdSortedTransactionIndex].date,
+        transactionsForSorting[thirdSortedTransactionIndex].amount,
+        transactionsForSorting[thirdSortedTransactionIndex].description,
+        transactionsForSorting[thirdSortedTransactionIndex].type
+      );
+      const thirdSortedTransactionElement = (
+        await findAllByRole(transactionHistoryElement, 'list')
+      )[2];
+      const typeInThirdSortedTransaction = getByText(
+        thirdSortedTransactionElement,
+        thirdSortedTransactionInstance.type
+      );
+      const dateInThirdSortedTransaction = getByText(
+        thirdSortedTransactionElement,
+        thirdSortedTransactionInstance.date
+      );
+      const amountInThirdSortedTransaction = getByText(
+        thirdSortedTransactionElement,
+        thirdSortedTransactionInstance.amount
+      );
+      const descriptionInThirdSortedTransaction = getByText(
+        thirdSortedTransactionElement,
+        thirdSortedTransactionInstance.description
+      );
+
+      expect(typeInThirdSortedTransaction).toBeInTheDocument();
+      expect(dateInThirdSortedTransaction).toBeInTheDocument();
+      expect(amountInThirdSortedTransaction).toBeInTheDocument();
+      expect(descriptionInThirdSortedTransaction).toBeInTheDocument();
+    });
   });
 });
