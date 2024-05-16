@@ -216,5 +216,32 @@ describe('Transaction', () => {
 
       expect(actualResult).toBe(expectedResult);
     });
+
+    it('should return 1 when the first transaction compared to the second transaction and compared by an empty string (based on id) and sort order is descending', () => {
+      const firstTransaction = new Transaction(
+        1,
+        '2024-05-02T09:00:00',
+        150.5,
+        'Freelance payment',
+        'deposit'
+      );
+      const secondTransaction = new Transaction(
+        2,
+        '2024-05-03T12:30:00',
+        50.25,
+        'Grocery shopping',
+        'withdraw'
+      );
+
+      const expectedResult = 1;
+
+      const actualResult = firstTransaction.comparesTo(
+        secondTransaction,
+        '',
+        'descending'
+      );
+
+      expect(actualResult).toBe(expectedResult);
+    });
   });
 });

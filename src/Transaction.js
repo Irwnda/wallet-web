@@ -59,6 +59,6 @@ export default class Transaction {
 
     if (sortBy === 'amount')
       return (this.#amount - anotherTransaction.#amount) * sortMultiplier;
-    return this.#id - anotherTransaction.#id;
+    return (this.#id - anotherTransaction.#id) * sortMultiplier;
   }
 }
