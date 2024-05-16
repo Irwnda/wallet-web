@@ -50,10 +50,12 @@ export default class Transaction {
     };
   }
 
-  comparesTo(anotherTransaction, sortBy, sortOrder) {
+  comparesTo(anotherTransaction, sortBy, sortOrder = 'ascending') {
     const sortMultiplier = sortOrder === 'descending' ? -1 : 1;
     if (sortBy === 'date' || sortBy === 'description')
-      return this[sortBy].localeCompare(anotherTransaction[sortBy]);
+      return (
+        this[sortBy].localeCompare(anotherTransaction[sortBy]) * sortMultiplier
+      );
 
     if (sortBy === 'amount')
       return (this.#amount - anotherTransaction.#amount) * sortMultiplier;
