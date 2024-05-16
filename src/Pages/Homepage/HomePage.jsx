@@ -17,6 +17,7 @@ export default function HomePage() {
   const { fetchedData: wallet } = useFetch('wallets', user?.walletId);
   const [filterQuery, setFilterQuery] = useState('');
   const [sortByValue, setSortByValue] = useState('');
+  const [sortOrderValue, setSortOrderValue] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
@@ -85,6 +86,16 @@ export default function HomePage() {
         <option value="description">Description</option>
         <option value="amount">Amount</option>
       </select>
+      <label htmlFor="sort-order">Sort Order</label>
+      <select
+        name="sort-order"
+        id="sort-order"
+        value={sortOrderValue}
+        onChange={(event) => setSortOrderValue(event.target.value)}
+      >
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
+      </select>
       <label htmlFor="filter">Filter</label>
       <input
         type="text"
@@ -105,7 +116,11 @@ export default function HomePage() {
                 transaction.amount.toString().includes(filterQuery)
             )
             .sort((firstTransaction, secondTransaction) =>
-              firstTransaction.comparesTo(secondTransaction, sortByValue)
+              firstTransaction.comparesTo(
+                secondTransaction,
+                sortByValue,
+                sortOrderValue
+              )
             )
             .map((transaction) => (
               <li key={transaction.id} className="transaction-item">
