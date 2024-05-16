@@ -16,6 +16,7 @@ export default function HomePage() {
   const { fetchedData: user } = useFetch('customers', CUSTOMER_ID);
   const { fetchedData: wallet } = useFetch('wallets', user?.walletId);
   const [filterQuery, setFilterQuery] = useState('');
+  const [sortByValue, setSortByValue] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
@@ -72,6 +73,18 @@ export default function HomePage() {
           </li>
         </ul>
       </section>
+      <label htmlFor="sort-by">Sort By</label>
+      <select
+        name="sort-by"
+        id="sort-by"
+        value={sortByValue}
+        onChange={(event) => setSortByValue(event.target.value)}
+      >
+        <option value="">Select Sorting Value</option>
+        <option value="date">Date</option>
+        <option value="description">Description</option>
+        <option value="amount">Amount</option>
+      </select>
       <label htmlFor="filter">Filter</label>
       <input
         type="text"
@@ -90,6 +103,10 @@ export default function HomePage() {
                   .toLowerCase()
                   .includes(filterQuery.toLocaleLowerCase()) ||
                 transaction.amount.toString().includes(filterQuery)
+            )
+            .sort(
+              (firstTransaction, secondTransaction) =>
+                firstTransaction[sortByValue] - secondTransaction[sortByValue]
             )
             .map((transaction) => (
               <li key={transaction.id} className="transaction-item">
