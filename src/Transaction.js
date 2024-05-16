@@ -51,6 +51,6 @@ export default class Transaction {
   }
 
   comparesTo(anotherTransaction) {
-    return this.#amount - anotherTransaction.#amount < 0 ? -1 : 1;
+    return this.#amount - anotherTransaction.#amount;
   }
 }
