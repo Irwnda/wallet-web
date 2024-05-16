@@ -4,6 +4,7 @@ import axios from 'axios';
 import Transaction from '../../Transaction';
 import useFetch from '../../Hooks/useFetch';
 import GreetingUser from './GreetingUser';
+import BalanceInformation from './BalanceInformation';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -56,22 +57,11 @@ export default function HomePage() {
   return (
     <>
       <GreetingUser user={user} />
-      <section>
-        <ul className="balance-information-wrapper">
-          <li className="balance-information-card">
-            <h5>Balance</h5>
-            <p>{wallet?.balance}</p>
-          </li>
-          <li className="deposit-information-card">
-            <h5>Deposit</h5>
-            <p>{depositAmount}</p>
-          </li>
-          <li className="withdraw-information-card">
-            <h5>Withdraw</h5>
-            <p>{withdrawAmount}</p>
-          </li>
-        </ul>
-      </section>
+      <BalanceInformation
+        balance={wallet?.balance}
+        deposit={depositAmount}
+        withdraw={withdrawAmount}
+      />
       <label htmlFor="sort-by">Sort By</label>
       <select
         name="sort-by"
