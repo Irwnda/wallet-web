@@ -50,11 +50,13 @@ export default class Transaction {
     };
   }
 
-  comparesTo(anotherTransaction, sortBy) {
+  comparesTo(anotherTransaction, sortBy, sortOrder) {
+    const sortMultiplier = sortOrder === 'descending' ? -1 : 1;
     if (sortBy === 'date' || sortBy === 'description')
       return this[sortBy].localeCompare(anotherTransaction[sortBy]);
 
-    if (sortBy === 'amount') return this.#amount - anotherTransaction.#amount;
+    if (sortBy === 'amount')
+      return (this.#amount - anotherTransaction.#amount) * sortMultiplier;
     return this.#id - anotherTransaction.#id;
   }
 }

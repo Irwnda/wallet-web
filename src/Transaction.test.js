@@ -165,5 +165,30 @@ describe('Transaction', () => {
 
       expect(actualResult).toBe(expectedResult);
     });
+
+    it('should return value greater than 0 when the first transaction has less amount than the second transaction and the sort order is descending', () => {
+      const firstTransaction = new Transaction(
+        3,
+        '2024-05-03T12:30:00',
+        50.25,
+        'Grocery shopping',
+        'withdraw'
+      );
+      const secondTransaction = new Transaction(
+        2,
+        '2024-05-04T09:00:00',
+        150.5,
+        'Freelance payment',
+        'deposit'
+      );
+
+      const actualResult = firstTransaction.comparesTo(
+        secondTransaction,
+        'amount',
+        'descending'
+      );
+
+      expect(actualResult).toBeGreaterThan(0);
+    });
   });
 });
