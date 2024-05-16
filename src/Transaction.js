@@ -51,9 +51,10 @@ export default class Transaction {
   }
 
   comparesTo(anotherTransaction, sortBy) {
-    if (sortBy === 'date' || sortBy === 'description') {
+    if (sortBy === 'date' || sortBy === 'description')
       return this.#date.localeCompare(anotherTransaction.#date);
-    }
-    return this.#amount - anotherTransaction.#amount;
+
+    if (sortBy === 'amount') return this.#amount - anotherTransaction.#amount;
+    return this.#id - anotherTransaction.#id;
   }
 }

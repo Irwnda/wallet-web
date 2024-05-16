@@ -22,7 +22,7 @@ describe('Transaction', () => {
   describe('^comparesTo', () => {
     it('should return value less than 0 when the first transaction has less amount than the second transaction', () => {
       const firstTransaction = new Transaction(
-        1,
+        3,
         '2024-05-03T12:30:00',
         50.25,
         'Grocery shopping',
@@ -36,7 +36,10 @@ describe('Transaction', () => {
         'deposit'
       );
 
-      const actualResult = firstTransaction.comparesTo(secondTransaction);
+      const actualResult = firstTransaction.comparesTo(
+        secondTransaction,
+        'amount'
+      );
 
       expect(actualResult).toBeLessThan(0);
     });
@@ -57,7 +60,10 @@ describe('Transaction', () => {
         'withdraw'
       );
 
-      const actualResult = firstTransaction.comparesTo(secondTransaction);
+      const actualResult = firstTransaction.comparesTo(
+        secondTransaction,
+        'amount'
+      );
 
       expect(actualResult).toBeGreaterThan(0);
     });
@@ -79,7 +85,10 @@ describe('Transaction', () => {
       );
       const expectedResult = 0;
 
-      const actualResult = firstTransaction.comparesTo(secondTransaction);
+      const actualResult = firstTransaction.comparesTo(
+        secondTransaction,
+        'amount'
+      );
 
       expect(actualResult).toBe(expectedResult);
     });
@@ -130,6 +139,29 @@ describe('Transaction', () => {
         secondTransaction,
         'description'
       );
+
+      expect(actualResult).toBe(expectedResult);
+    });
+
+    it('should return -1 when the first transaction compared to the second transaction and compared by an empty string (based on id)', () => {
+      const firstTransaction = new Transaction(
+        1,
+        '2024-05-02T09:00:00',
+        150.5,
+        'Freelance payment',
+        'deposit'
+      );
+      const secondTransaction = new Transaction(
+        2,
+        '2024-05-03T12:30:00',
+        50.25,
+        'Grocery shopping',
+        'withdraw'
+      );
+
+      const expectedResult = -1;
+
+      const actualResult = firstTransaction.comparesTo(secondTransaction, '');
 
       expect(actualResult).toBe(expectedResult);
     });
