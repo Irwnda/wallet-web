@@ -3,6 +3,7 @@ import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import axios from 'axios';
 import Transaction from '../../Transaction';
 import useFetch from '../../Hooks/useFetch';
+import GreetingUser from './GreetingUser';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -54,10 +55,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="greetings-wrapper">
-        Hello,
-        <h1>{user?.name}</h1>
-      </section>
+      <GreetingUser user={user} />
       <section>
         <ul className="balance-information-wrapper">
           <li className="balance-information-card">
