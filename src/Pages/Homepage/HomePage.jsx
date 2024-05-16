@@ -104,14 +104,9 @@ export default function HomePage() {
                   .includes(filterQuery.toLocaleLowerCase()) ||
                 transaction.amount.toString().includes(filterQuery)
             )
-            .sort((firstTransaction, secondTransaction) => {
-              if (sortByValue === 'amount')
-                return firstTransaction.amount - secondTransaction.amount;
-              if (sortByValue === 'description' || sortByValue === 'date')
-                return firstTransaction[sortByValue].localeCompare(
-                  secondTransaction[sortByValue]
-                );
-            })
+            .sort((firstTransaction, secondTransaction) =>
+              firstTransaction.comparesTo(secondTransaction, sortByValue)
+            )
             .map((transaction) => (
               <li key={transaction.id} className="transaction-item">
                 <ul>
