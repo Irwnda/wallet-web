@@ -1,4 +1,5 @@
 import React from 'react';
+import TransactionItem from './TransactionItem';
 
 export default function TransactionList({
   transactions,
@@ -20,18 +21,7 @@ export default function TransactionList({
             )
           )
           .map((transaction) => (
-            <li key={transaction.id} className="transaction-item">
-              <ul>
-                <li className="financial-detail">
-                  <span>{transaction.type}</span>
-                  <span>{transaction.amount}</span>
-                </li>
-                <li className="transaction-context">
-                  <span>{transaction.description}</span>
-                  <span>{transaction.date}</span>
-                </li>
-              </ul>
-            </li>
+            <TransactionItem transaction={transaction} key={transaction.id} />
           ))}
       </ul>
     </section>
