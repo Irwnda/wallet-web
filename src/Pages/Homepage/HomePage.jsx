@@ -107,9 +107,10 @@ export default function HomePage() {
             .sort((firstTransaction, secondTransaction) => {
               if (sortByValue === 'amount')
                 return firstTransaction.amount - secondTransaction.amount;
-              return firstTransaction.description.localeCompare(
-                secondTransaction.description
-              );
+              if (sortByValue === 'description' || sortByValue === 'date')
+                return firstTransaction[sortByValue].localeCompare(
+                  secondTransaction[sortByValue]
+                );
             })
             .map((transaction) => (
               <li key={transaction.id} className="transaction-item">
