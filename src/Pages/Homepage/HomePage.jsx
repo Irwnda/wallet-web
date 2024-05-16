@@ -7,6 +7,7 @@ import GreetingUser from './GreetingUser';
 import BalanceInformation from './BalanceInformation';
 import Sorting from './Sorting';
 import Filter from './Filter';
+import TransactionList from './TransactionList';
 
 function getAmountTotalCategorized(transactions, type) {
   return transactions.reduce((total, transaction) => {
@@ -71,34 +72,12 @@ export default function HomePage() {
         setSortOrderValue={setSortOrderValue}
       />
       <Filter filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
-      <section className="transaction-history-section">
-        <h3>Transactions</h3>
-        <ul className="transaction-history-wrapper">
-          {transactions
-            .filter((transaction) => transaction.filter(filterQuery))
-            .sort((firstTransaction, secondTransaction) =>
-              firstTransaction.comparesTo(
-                secondTransaction,
-                sortByValue,
-                sortOrderValue
-              )
-            )
-            .map((transaction) => (
-              <li key={transaction.id} className="transaction-item">
-                <ul>
-                  <li className="financial-detail">
-                    <span>{transaction.type}</span>
-                    <span>{transaction.amount}</span>
-                  </li>
-                  <li className="transaction-context">
-                    <span>{transaction.description}</span>
-                    <span>{transaction.date}</span>
-                  </li>
-                </ul>
-              </li>
-            ))}
-        </ul>
-      </section>
+      <TransactionList
+        transactions={transactions}
+        filterQuery={filterQuery}
+        sortByValue={sortByValue}
+        sortOrderValue={sortOrderValue}
+      />
     </>
   );
 }
