@@ -61,4 +61,8 @@ export default class Transaction {
       return (this.#amount - anotherTransaction.#amount) * sortMultiplier;
     return (this.#id - anotherTransaction.#id) * sortMultiplier;
   }
+
+  filter(query) {
+    return this.#description.includes(query);
+  }
 }

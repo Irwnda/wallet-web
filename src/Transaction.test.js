@@ -244,4 +244,22 @@ describe('Transaction', () => {
       expect(actualResult).toBe(expectedResult);
     });
   });
+
+  describe('^filter', () => {
+    it('should return false when the query is "Shopping" as the description did not match the query', () => {
+      const transaction = new Transaction(
+        1,
+        '2024-05-02T09:00:00',
+        150.5,
+        'Freelance payment',
+        'deposit'
+      );
+      const query = 'Shopping';
+      const expectedResult = false;
+
+      const actualResult = transaction.filter(query);
+
+      expect(actualResult).toBe(expectedResult);
+    });
+  });
 });
