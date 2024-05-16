@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { BACKEND_URL, CUSTOMER_ID } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../Hooks/useFetch';
+import InsufficientBalanceError from '../../Errors/InsufficientBalanceError';
 
 const initialTransactionValue = {
   amount: 0,
   description: '',
   type: ''
 };
+
 export default function TransactionForm() {
   const { fetchedData: user } = useFetch('customers', CUSTOMER_ID);
   const { fetchedData: wallet } = useFetch('wallets', user?.walletId);
@@ -16,16 +18,13 @@ export default function TransactionForm() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
+  const validateTransaction = () => {
+    if (wallet.balance < transaction.amount && transaction.type === 'withdraw')
+      throw new InsufficientBalanceError();
+  };
+
   const submitTransaction = () => {
     async function postTransaction() {
-      if (
-        wallet.balance < transaction.amount &&
-        transaction.type === 'withdraw'
-      ) {
-        setErrorMessage('Insufficient balance');
-        return;
-      }
-
       await axios.post(`${BACKEND_URL}/wallets/${wallet.id}/transactions`, {
         ...transaction,
         date: new Date()
@@ -40,7 +39,12 @@ export default function TransactionForm() {
       navigate('/');
     }
 
-    postTransaction();
+    try {
+      validateTransaction();
+      postTransaction();
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -51,7 +55,6 @@ export default function TransactionForm() {
         <input
           id="amount"
           type="number"
-          min={0}
           value={transaction.amount}
           onChange={(event) =>
             setTransaction((previousValue) => ({
