@@ -98,6 +98,19 @@ textarea {
   flex-direction: column;
   align-items: center;
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-information-wrapper > li *:not(img) {
+  z-index: 1;
+}
+
+.balance-information-wrapper > li img {
+  position: absolute;
+  height: 175%;
+  left: -25%;
+  bottom: -10%;
 }
 
 .balance-information-wrapper > li > p {
