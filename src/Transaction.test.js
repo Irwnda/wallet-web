@@ -118,12 +118,12 @@ describe('Transaction', () => {
       expect(actualResult).toBe(expectedResult);
     });
 
-    it('should return -1 when the first transaction earlier if sorted based on the description than the second transaction', () => {
+    it('should return 1 when the first transaction earlier if sorted based on the description than the second transaction', () => {
       const firstTransaction = new Transaction(
         1,
         '2024-05-03T12:30:00',
         50.25,
-        'Grocery shopping',
+        'Restaurant Shopping',
         'withdraw'
       );
       const secondTransaction = new Transaction(
@@ -133,7 +133,7 @@ describe('Transaction', () => {
         'Freelance payment',
         'deposit'
       );
-      const expectedResult = -1;
+      const expectedResult = 1;
 
       const actualResult = firstTransaction.comparesTo(
         secondTransaction,
